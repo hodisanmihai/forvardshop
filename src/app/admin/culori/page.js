@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import ResourceViewToggle from "../componentsAdminPage/CRUD-components/ResourceViewToggle";
 import ResourceContainer from "../componentsAdminPage/CRUD-components/ResourceContainer";
-import { supabase } from "../../../../lib/supabase";
+import { supabase } from "../../lib/supabase";
 import { useState } from "react";
 
 const Page = ({ openCreate }) => {

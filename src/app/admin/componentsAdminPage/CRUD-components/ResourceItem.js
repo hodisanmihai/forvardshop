@@ -7,7 +7,7 @@ const ResourceItem = ({ itemLabel, itemValue }) => {
     <div className="bg-blue-900 gap-10 p-10 w-full rounded-2xl drop-shadow-2xl flex flex-wrap justify-start">
       {/* Item Box */}
       {/* Show total items */}
-      <div className=""> Total: {itemValue.length}</div>
+      <div className=""> Total: {itemValue.length || 0}</div>
       {/* item list */}
       <div className="w-full  gap-10 flex flex-wrap justify-start">
         {itemValue.map((item, index) => (

@@ -14,6 +14,8 @@ const page = () => {
       <ResourceContainer
         createItem={"Creeaza Brand"}
         deleteItem={"Sterge Brand"}
+        itemLabel={"Culoare"}
+        itemValue={[]}
       />
     </div>
   );

@@ -1,27 +1,33 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import ResourceViewToggle from "../componentsAdminPage/CRUD-components/ResourceViewToggle";
 import ResourceContainer from "../componentsAdminPage/CRUD-components/ResourceContainer";
+import { supabase } from "../../../../lib/supabase";
+import { useState } from "react";
 
-const Page = () => {
-  const listCulori = [
-    "rosu",
-    "verde",
-    "galben",
-    "rosu",
-    "verde",
-    "galben",
-    "rosu",
-    "verde",
-    "galben",
-    "rosu",
-    "verde",
-    "galben",
-    "rosu",
-    "verde",
-    "galben",
-  ];
+const Page = ({ openCreate }) => {
+  const [listCulori, setListCulori] = useState([]);
+  const fetchCulori = async () => {
+    const { data, error } = await supabase.from("Culori").select("*");
+    if (error) {
+      console.log(error);
+    } else {
+      setListCulori(data.map((c) => c.name));
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, error } = await supabase.from("Culori").select("*");
+      if (error) console.log(error);
+      else setListCulori(data.map((c) => c.name));
+    };
+    fetchData();
+  }, []);
+
+  console.log(listCulori);
+
   return (
     <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">
       {/* Selector */}
@@ -33,6 +39,8 @@ const Page = () => {
         deleteItem={"Sterge Culoare"}
         itemLabel={"Culoare"}
         itemValue={listCulori}
+        setItemValue={setListCulori}
+        openCreate={() => setIsModalOpen(true)}
       />
     </div>
   );

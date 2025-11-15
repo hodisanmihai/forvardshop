@@ -9,11 +9,17 @@ const ResourceContainer = ({
   deleteItem,
   itemLabel,
   itemValue,
+  setItemValue,
 }) => {
   return (
     <div className="w-full min-h-[500px] drop-shadow-2xl rounded-2xl  p-10 flex flex-col justify-start items-center  gap-10 ">
       {/* CRUD */}
-      <ResourceActions createItem={createItem} deleteItem={deleteItem} />
+      <ResourceActions
+        createItem={createItem}
+        deleteItem={deleteItem}
+        setItemValue={setItemValue}
+        itemValue={itemValue}
+      />
       {/* ITEM CONTAINER */}
       <ResourceItem itemLabel={itemLabel} itemValue={itemValue} />
     </div>

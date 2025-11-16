@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { supabase } from "../../../../../lib/supabase";
 
 const ResourceViewToggle = ({ text1, text2 }) => {
   return (

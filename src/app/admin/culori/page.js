@@ -7,26 +7,27 @@ import { supabase } from "../../../../lib/supabase";
 import { useState } from "react";
 
 const Page = () => {
-  const [listCulori, setListCulori] = useState([]);
-  const fetchCulori = async () => {
+  const [listIteme, setListIteme] = useState([]);
+  const fetchIteme = async () => {
     const { data, error } = await supabase.from("Culori").select("*");
     if (error) {
       console.log(error);
     } else {
-      setListCulori(data.map((c) => c.name));
+      setListIteme(data);
     }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchIteme = async () => {
       const { data, error } = await supabase.from("Culori").select("*");
       if (error) console.log(error);
-      else setListCulori(data.map((c) => c.name));
+      else setListIteme(data);
     };
-    fetchData();
+
+    fetchIteme();
   }, []);
 
-  console.log(listCulori);
+  console.log(listIteme);
 
   return (
     <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">
@@ -38,8 +39,9 @@ const Page = () => {
         createItem={"Creeaza Culoare"}
         deleteItem={"Sterge Culoare"}
         itemLabel={"Culoare"}
-        itemValue={listCulori}
-        setItemValue={setListCulori}
+        itemValue={listIteme}
+        setItemValue={setListIteme}
+        tableName="Culori"
         openCreate={() => setIsModalOpen(true)}
       />
     </div>

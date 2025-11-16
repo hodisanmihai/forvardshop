@@ -5,14 +5,27 @@ export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentResource, setCurrentResource] = useState(null);
+  const [createCallback, setCreateCallback] = useState(null);
 
-  const openCreate = () => setIsModalOpen(true);
-  const closeCreate = () => setIsModalOpen(false);
+  const openCreate = (resourceName, callback) => {
+    setCurrentResource(resourceName);
+    setCreateCallback(() => callback); // salvăm funcția trimisă din ResourceActions
+    setIsModalOpen(true);
+  };
+
+  const closeCreate = () => {
+    setIsModalOpen(false);
+    setCurrentResource(null);
+    setCreateCallback(null);
+  };
 
   return (
     <ModalContext.Provider
       value={{
         isModalOpen,
+        currentResource,
+        createCallback,
         openCreate,
         closeCreate,
       }}

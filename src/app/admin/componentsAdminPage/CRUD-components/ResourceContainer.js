@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import ResourceActions from "./ResourceActions";
 import ResourceItem from "./ResourceItem";
 
@@ -10,18 +10,29 @@ const ResourceContainer = ({
   itemLabel,
   itemValue,
   setItemValue,
+  tableName,
 }) => {
+  const [selectedItemsForDelete, setSelectedItemsForDelete] = useState([]);
+
   return (
-    <div className="w-full min-h-[500px] drop-shadow-2xl rounded-2xl  p-10 flex flex-col justify-start items-center  gap-10 ">
-      {/* CRUD */}
+    <div className="w-full min-h-[500px] drop-shadow-2xl rounded-2xl p-10 flex flex-col justify-start items-center gap-10">
+      {/* ACTIONS: CREATE + DELETE */}
       <ResourceActions
         createItem={createItem}
         deleteItem={deleteItem}
-        setItemValue={setItemValue}
+        tableName={tableName}
         itemValue={itemValue}
+        setItemValue={setItemValue}
+        selectedItemsForDelete={selectedItemsForDelete}
       />
-      {/* ITEM CONTAINER */}
-      <ResourceItem itemLabel={itemLabel} itemValue={itemValue} />
+
+      {/* ITEMs*/}
+      <ResourceItem
+        itemLabel={itemLabel}
+        itemValue={itemValue}
+        selectedItemsForDelete={selectedItemsForDelete}
+        setSelectedItemsForDelete={setSelectedItemsForDelete}
+      />
     </div>
   );
 };

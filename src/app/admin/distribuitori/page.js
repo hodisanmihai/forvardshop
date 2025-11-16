@@ -9,7 +9,7 @@ import { useState } from "react";
 const Page = () => {
   const [listIteme, setListIteme] = useState([]);
   const fetchIteme = async () => {
-    const { data, error } = await supabase.from("Brands").select("*");
+    const { data, error } = await supabase.from("Distribuitori").select("*");
     if (error) {
       console.log(error);
     } else {
@@ -19,7 +19,7 @@ const Page = () => {
 
   useEffect(() => {
     const fetchIteme = async () => {
-      const { data, error } = await supabase.from("Brands").select("*");
+      const { data, error } = await supabase.from("Distribuitori").select("*");
       if (error) console.log(error);
       else setListIteme(data);
     };
@@ -32,16 +32,19 @@ const Page = () => {
   return (
     <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">
       {/* Selector */}
-      <ResourceViewToggle text1={"Toate Brand-urile"} text2={"Cauta Brand"} />
+      <ResourceViewToggle
+        text1={"Toti Distribuitorii"}
+        text2={"Cauta Distribuitor"}
+      />
 
       {/* container  */}
       <ResourceContainer
-        createItem={"Creeaza Brand"}
-        deleteItem={"Sterge Brand"}
-        itemLabel={"Brand"}
+        createItem={"Creeaza Distribuitor"}
+        deleteItem={"Sterge Distribuitor"}
+        itemLabel={"Distribuitor"}
         itemValue={listIteme}
         setItemValue={setListIteme}
-        tableName="Brands"
+        tableName="Distribuitori"
         openCreate={() => setIsModalOpen(true)}
       />
     </div>

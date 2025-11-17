@@ -7,7 +7,20 @@ import { supabase } from "../../../../lib/supabase";
 import { useState } from "react";
 
 const Page = () => {
+  const [searchMode, setsearchMode] = useState(false);
+  const [searchItem, setSearcItem] = useState("");
   const [listIteme, setListIteme] = useState([]);
+
+  // filtrare iteme
+
+  const filteredList = searchMode
+    ? listIteme.filter((item) =>
+        item.name.toLowerCase().includes(searchItem.toLowerCase())
+      )
+    : listIteme;
+
+  // fetch
+
   const fetchIteme = async () => {
     const { data, error } = await supabase.from("Categorii").select("*");
     if (error) {
@@ -35,6 +48,9 @@ const Page = () => {
       <ResourceViewToggle
         text1={"Toate Categoriile"}
         text2={"Cauta Categorie"}
+        searchMode={searchMode}
+        setsearchMode={setsearchMode}
+        setSearcItem={setSearcItem}
       />
 
       {/* container  */}
@@ -42,10 +58,12 @@ const Page = () => {
         createItem={"Creeaza Categorie"}
         deleteItem={"Sterge Categorie"}
         itemLabel={"Categorie"}
-        itemValue={listIteme}
+        itemValue={filteredList}
         setItemValue={setListIteme}
         tableName="Categorii"
         openCreate={() => setIsModalOpen(true)}
+        searchItem={searchItem}
+        searchMode={searchMode}
       />
     </div>
   );

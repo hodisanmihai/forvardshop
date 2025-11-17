@@ -11,6 +11,8 @@ const ResourceContainer = ({
   itemValue,
   setItemValue,
   tableName,
+  searchItem,
+  searchMode,
 }) => {
   const [selectedItemsForDelete, setSelectedItemsForDelete] = useState([]);
 
@@ -32,6 +34,8 @@ const ResourceContainer = ({
         itemValue={itemValue}
         selectedItemsForDelete={selectedItemsForDelete}
         setSelectedItemsForDelete={setSelectedItemsForDelete}
+        searchItem={searchItem}
+        searchMode={searchMode}
       />
     </div>
   );

@@ -7,7 +7,20 @@ import { supabase } from "../../../../lib/supabase";
 import { useState } from "react";
 
 const Page = () => {
+  const [searchMode, setsearchMode] = useState(false);
+  const [searchItem, setSearcItem] = useState("");
   const [listIteme, setListIteme] = useState([]);
+
+  // filtrare iteme
+
+  const filteredList = searchMode
+    ? listIteme.filter((item) =>
+        item.name.toLowerCase().includes(searchItem.toLowerCase())
+      )
+    : listIteme;
+
+  // fetch
+
   const fetchIteme = async () => {
     const { data, error } = await supabase.from("Brands").select("*");
     if (error) {
@@ -32,17 +45,25 @@ const Page = () => {
   return (
     <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">
       {/* Selector */}
-      <ResourceViewToggle text1={"Toate Brand-urile"} text2={"Cauta Brand"} />
+      <ResourceViewToggle
+        text1={"Toate Brand-urile"}
+        text2={"Cauta Brand"}
+        searchMode={searchMode}
+        setsearchMode={setsearchMode}
+        setSearcItem={setSearcItem}
+      />
 
       {/* container  */}
       <ResourceContainer
         createItem={"Creeaza Brand"}
         deleteItem={"Sterge Brand"}
         itemLabel={"Brand"}
-        itemValue={listIteme}
+        itemValue={filteredList}
         setItemValue={setListIteme}
         tableName="Brands"
         openCreate={() => setIsModalOpen(true)}
+        searchItem={searchItem}
+        searchMode={searchMode}
       />
     </div>
   );

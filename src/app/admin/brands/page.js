@@ -12,10 +12,11 @@ const Page = () => {
   const [listIteme, setListIteme] = useState([]);
 
   // filtrare iteme
-
   const filteredList = searchMode
-    ? listIteme.filter((item) =>
-        item.name.toLowerCase().includes(searchItem.toLowerCase())
+    ? listIteme.filter(
+        (item) =>
+          item.name.toLowerCase().includes(searchItem.toLowerCase()) ||
+          item.id.toString() === searchItem
       )
     : listIteme;
 

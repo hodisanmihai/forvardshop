@@ -20,14 +20,6 @@ const Page = () => {
     : listIteme;
 
   // fetch iteme
-  const fetchIteme = async () => {
-    const { data, error } = await supabase.from("Culori").select("*");
-    if (error) {
-      console.log(error);
-    } else {
-      setListIteme(data);
-    }
-  };
 
   useEffect(() => {
     const fetchIteme = async () => {

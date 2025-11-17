@@ -21,15 +21,6 @@ const Page = () => {
 
   // fetch
 
-  const fetchIteme = async () => {
-    const { data, error } = await supabase.from("Categorii").select("*");
-    if (error) {
-      console.log(error);
-    } else {
-      setListIteme(data);
-    }
-  };
-
   useEffect(() => {
     const fetchIteme = async () => {
       const { data, error } = await supabase.from("Categorii").select("*");
@@ -39,8 +30,6 @@ const Page = () => {
 
     fetchIteme();
   }, []);
-
-  console.log(listIteme);
 
   return (
     <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">

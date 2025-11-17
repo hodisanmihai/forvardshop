@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ResourceViewToggle from "../componentsAdminPage/CRUD-components/ResourceViewToggle";
-import ResourceContainer from "../componentsAdminPage/CRUD-components/ResourceContainer";
-import { supabase } from "../../../../lib/supabase";
+import ResourceViewToggle from "../../componentsAdminPage/CRUD-components/ResourceViewToggle";
+import ResourceContainer from "../../componentsAdminPage/CRUD-components/ResourceContainer";
+import { supabase } from "../../../../../lib/supabase";
 import { useState } from "react";
 
 const Page = () => {
@@ -27,7 +27,9 @@ const Page = () => {
     const fetchIteme = async () => {
       const { data, error } = await supabase.from("Culori").select("*");
       if (error) console.log(error);
-      else setListIteme(data);
+      else {
+        setListIteme(data);
+      }
     };
 
     fetchIteme();

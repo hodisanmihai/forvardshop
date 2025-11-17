@@ -10,7 +10,7 @@ export const ModalProvider = ({ children }) => {
 
   const openCreate = (resourceName, callback) => {
     setCurrentResource(resourceName);
-    setCreateCallback(() => callback); // salvăm funcția trimisă din ResourceActions
+    setCreateCallback(() => callback);
     setIsModalOpen(true);
   };
 

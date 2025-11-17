@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ResourceViewToggle from "../componentsAdminPage/CRUD-components/ResourceViewToggle";
-import ResourceContainer from "../componentsAdminPage/CRUD-components/ResourceContainer";
-import { supabase } from "../../../../lib/supabase";
+import ResourceViewToggle from "../../componentsAdminPage/CRUD-components/ResourceViewToggle";
+import ResourceContainer from "../../componentsAdminPage/CRUD-components/ResourceContainer";
+import { supabase } from "../../../../../lib/supabase";
 import { useState } from "react";
 
 const Page = () => {
@@ -20,24 +20,28 @@ const Page = () => {
           item.id.toString() === searchItem
       )
     : listIteme;
-  // fetch
+
+  // fetch iteme
 
   useEffect(() => {
     const fetchIteme = async () => {
-      const { data, error } = await supabase.from("Distribuitori").select("*");
+      const { data, error } = await supabase.from("Produse").select("*");
       if (error) console.log(error);
-      else setListIteme(data);
+      else {
+        console.log(data);
+        setListIteme(data);
+      }
     };
 
     fetchIteme();
   }, []);
 
   return (
-    <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center  gap-10  ">
+    <div className="bg-gray-800 w-full min-h-screen p-10 flex flex-col justify-start items-center gap-10  ">
       {/* Selector */}
       <ResourceViewToggle
-        text1={"Toti Distribuitorii"}
-        text2={"Cauta Distribuitor"}
+        text1={"Toate Produsele"}
+        text2={"Cauta Produse"}
         searchMode={searchMode}
         setsearchMode={setsearchMode}
         setSearcItem={setSearcItem}
@@ -45,12 +49,12 @@ const Page = () => {
 
       {/* container  */}
       <ResourceContainer
-        createItem={"Creeaza Distribuitor"}
-        deleteItem={"Sterge Distribuitor"}
-        itemLabel={"Distribuitor"}
+        createItem={"Creeaza Produs"}
+        deleteItem={"Sterge Produs"}
+        itemLabel={"Produse"}
         itemValue={filteredList}
         setItemValue={setListIteme}
-        tableName="Distribuitori"
+        tableName="Produse"
         openCreate={() => setIsModalOpen(true)}
         searchItem={searchItem}
         searchMode={searchMode}

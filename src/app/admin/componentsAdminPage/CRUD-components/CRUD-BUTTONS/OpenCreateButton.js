@@ -30,7 +30,6 @@ const OpenCreateButton = ({
 
   return (
     <>
-      {" "}
       <button
         className="bg-blue-800 p-6 rounded hover:bg-blue-600 cursor-pointer"
         onClick={handleOpenCreate}

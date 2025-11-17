@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SideBar from "./componentsAdminPage/SideBar";
-import CreateSmallItem from "./componentsAdminPage/CRUD-components/CreateSmallItem";
+import CreateItem from "./componentsAdminPage/CRUD-components/CreateItem";
 import { ModalProvider } from "./context/SmallModalContext";
 
 export default function AdminLayout({ children }) {
@@ -13,7 +13,7 @@ export default function AdminLayout({ children }) {
       <div className="flex w-screen">
         <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
         <main className="flex-1">{children}</main>
-        <CreateSmallItemWrapper />
+        <OpenCreateItemWrapper />
       </div>
     </ModalProvider>
   );
@@ -23,7 +23,7 @@ export default function AdminLayout({ children }) {
 import { useContext } from "react";
 import { ModalContext } from "./context/SmallModalContext";
 
-const CreateSmallItemWrapper = () => {
+const OpenCreateItemWrapper = () => {
   const { isModalOpen, closeCreate } = useContext(ModalContext);
-  return <CreateSmallItem visible={isModalOpen} onClose={closeCreate} />;
+  return <CreateItem visible={isModalOpen} onClose={closeCreate} />;
 };

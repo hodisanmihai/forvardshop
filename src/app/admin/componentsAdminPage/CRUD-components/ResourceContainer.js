@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ResourceActions from "./ResourceActions";
 import ResourceItem from "./ResourceItem";
+import { ModalContext } from "../../context/SmallModalContext";
 
 const ResourceContainer = ({
   createItem,
@@ -15,6 +16,7 @@ const ResourceContainer = ({
   searchMode,
 }) => {
   const [selectedItemsForDelete, setSelectedItemsForDelete] = useState([]);
+  const { openViewProduct } = useContext(ModalContext);
 
   return (
     <div className="w-full min-h-[500px] drop-shadow-2xl rounded-2xl p-10 flex flex-col justify-start items-center gap-10">
@@ -36,6 +38,14 @@ const ResourceContainer = ({
         setSelectedItemsForDelete={setSelectedItemsForDelete}
         searchItem={searchItem}
         searchMode={searchMode}
+        tableName={tableName}
+        onViewProduct={tableName === "Produse" && openViewProduct 
+          ? (product) => openViewProduct(product)
+          : undefined}
+        onModifyProduct={tableName === "Produse" ? (product) => {
+          // This will be handled by ModifyButton
+          console.log("Modify product:", product);
+        } : undefined}
       />
     </div>
   );

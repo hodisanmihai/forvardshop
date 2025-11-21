@@ -1,14 +1,32 @@
 "use client";
 
+import { useContext, useState } from "react";
 import React from "react";
+import { ModalContext } from "../../context/SmallModalContext";
 
-const CreateSmallItem = ({ inputValue, createCallback, setInputValue }) => {
+const CreateSmallItem = ({
+  inputValue,
+  createCallback,
+  setInputValue,
+  onClose,
+}) => {
+  const { currentResource, showSuccessNotification } = useContext(ModalContext);
+  const fieldClassName = {
+    name: inputValue,
+  };
+
   const handleCreate = () => {
     if (!inputValue.trim()) {
       alert("Input-ul este gol");
       return;
     }
-    if (createCallback) createCallback(inputValue);
+    if (createCallback) createCallback(fieldClassName);
+
+    // Show succes notification
+    if (currentResource && showSuccessNotification) {
+      showSuccessNotification(currentResource);
+    }
+
     setInputValue("");
     onClose();
   };
@@ -27,6 +45,12 @@ const CreateSmallItem = ({ inputValue, createCallback, setInputValue }) => {
           }
         }}
       />
+      <button
+        className="bg-green-600 text-white p-2 rounded hover:bg-green-400"
+        onClick={handleCreate}
+      >
+        Creează
+      </button>
     </>
   );
 };

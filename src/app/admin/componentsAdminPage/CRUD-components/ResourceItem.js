@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import ProductItem from "./ProductItem";
 
 const ResourceItem = ({
   itemLabel,
@@ -9,18 +10,34 @@ const ResourceItem = ({
   setSelectedItemsForDelete,
   searchItem,
   searchMode,
+  tableName,
+  onViewProduct,
+  onModifyProduct,
 }) => {
-  const itemsPerPage = 15;
-
+  const itemsPerPage = tableName === "Produse" ? 10 : 15;
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleSelect = (itemId) => {
-    if (selectedItemsForDelete.includes(itemId)) {
-      setSelectedItemsForDelete(
-        selectedItemsForDelete.filter((id) => id !== itemId)
-      );
+    if (tableName === "Produse") {
+      if (selectedItemsForDelete.includes(itemId)) {
+        setSelectedItemsForDelete([]);
+      } else {
+        setSelectedItemsForDelete([itemId]);
+      }
     } else {
-      setSelectedItemsForDelete([...selectedItemsForDelete, itemId]);
+      if (selectedItemsForDelete.includes(itemId)) {
+        setSelectedItemsForDelete(
+          selectedItemsForDelete.filter((id) => id !== itemId)
+        );
+      } else {
+        setSelectedItemsForDelete([...selectedItemsForDelete, itemId]);
+      }
+    }
+  };
+
+  const handleDoubleClick = (item) => {
+    if (tableName === "Produse" && onViewProduct) {
+      onViewProduct(item);
     }
   };
 
@@ -50,7 +67,21 @@ const ResourceItem = ({
         ) : (
           <div>Nu există iteme în tabel</div>
         )
+      ) : tableName === "Produse" ? (
+        // Special layout for Produse: 2 columns
+        <div className="w-full gap-4 flex flex-wrap justify-start">
+          {paginatedItems.map((item) => (
+            <ProductItem
+              key={item.id}
+              product={item}
+              isSelected={selectedItemsForDelete.includes(item.id)}
+              onSelect={() => handleSelect(item.id)}
+              onDoubleClick={() => handleDoubleClick(item)}
+            />
+          ))}
+        </div>
       ) : (
+        // Default layout for other resources
         <div className="w-full gap-10 flex flex-wrap justify-start">
           {paginatedItems.map((item) => (
             <div

@@ -6,7 +6,7 @@ import CreateItem from "./componentsAdminPage/CRUD-components/CreateItem";
 import { ModalProvider } from "./context/SmallModalContext";
 
 export default function AdminLayout({ children }) {
-  const [isOpen, setIsOpen] = useState(false); // pentru sidebar
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <ModalProvider>

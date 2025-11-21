@@ -10,13 +10,13 @@ const OpenCreateButton = ({
   tableName,
   setItemValue,
 }) => {
-  const { openCreate } = useContext(ModalContext);
+  const { openCreate, showSuccessNotification } = useContext(ModalContext);
 
   const handleOpenCreate = () => {
-    openCreate(createItem, async (newItemValue) => {
+    openCreate(tableName, async (newItemValue) => {
       const { data, error } = await supabase
         .from(tableName)
-        .insert({ name: newItemValue })
+        .insert(newItemValue)
         .select("*");
 
       if (error) {
@@ -24,6 +24,10 @@ const OpenCreateButton = ({
         alert(`Nu s-a putut crea ${tableName}.`);
       } else {
         setItemValue([...itemValue, data[0]]);
+        // Show success notification
+        if (showSuccessNotification) {
+          showSuccessNotification(tableName);
+        }
       }
     });
   };
